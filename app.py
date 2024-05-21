@@ -1,7 +1,21 @@
-from flask import Flask, render_template, request, redirect, url_for, make_response
+from flask import Flask, render_template, request, redirect, url_for, make_response, flash
+from flask_sqlalchemy import SQLAlchemy
 import json
+from models import db, User
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+
+def create_tables():
+    db.create_all()
+
+@app.before_request
+def before_request():
+    create_tables()
 
 def load_products():
     with open('data/products.json', 'r', encoding='utf-8') as f:
@@ -59,6 +73,30 @@ def product(product_name):
         return render_template('product.html', product=product)
     else:
         return "Товар не найден", 404
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+@app.route('/register', methods=['POST'])
+def register_post():
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    
+    user = User.query.filter_by(email=email).first()
+    if user:
+        flash('Адрес электронной почты уже существует')
+        return redirect(url_for('register'))
+    
+    new_user = User(first_name=first_name, last_name=last_name, email=email)
+    new_user.set_password(password)
+    
+    db.session.add(new_user)
+    db.session.commit()
+    
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
