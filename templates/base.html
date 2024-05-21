@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <!-- Шапка -->
     <header>
         <div class="logo">
             <h1>Интернет-магазин</h1>
@@ -18,16 +17,13 @@
                 <li><a href="{{ url_for('category', category_name='clothing') }}">Одежда</a></li>
                 <li><a href="{{ url_for('category', category_name='shoes') }}">Обувь</a></li>
                 <li><a href="{{ url_for('form') }}">Войти</a></li>
+                <li><a href="{{ url_for('register') }}">Регистрация</a></li>
             </ul>
         </nav>
     </header>
-
-    <!-- Основное содержимое -->
     <main>
         {% block content %}{% endblock %}
     </main>
-
-    <!-- Подвал -->
     <footer>
         <p>&copy; 2024 Интернет-магазин. Все права защищены.</p>
     </footer>
