@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, request, redirect, url_for, make_response
 import json
 
 app = Flask(__name__)
@@ -16,6 +16,34 @@ category_names = {
 def index():
     return render_template('base.html')
 
+@app.route('/form')
+def form():
+    return render_template('form.html')
+
+@app.route('/submit_form', methods=['POST'])
+def submit_form():
+    name = request.form['name']
+    email = request.form['email']
+    resp = make_response(redirect(url_for('greeting')))
+    resp.set_cookie('name', name)
+    resp.set_cookie('email', email)
+    return resp
+
+@app.route('/greeting')
+def greeting():
+    name = request.cookies.get('name')
+    if name:
+        return render_template('greeting.html', name=name)
+    else:
+        return redirect(url_for('form'))
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    resp = make_response(redirect(url_for('form')))
+    resp.delete_cookie('name')
+    resp.delete_cookie('email')
+    return resp
+
 @app.route('/category/<category_name>')
 def category(category_name):
     products = load_products()
@@ -30,7 +58,7 @@ def product(product_name):
     if product:
         return render_template('product.html', product=product)
     else:
-        return "Product not found", 404
+        return "Товар не найден", 404
 
 if __name__ == '__main__':
     app.run(debug=True)
