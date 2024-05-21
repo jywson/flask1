@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Куртка",
+        "category": "clothing",
+        "image_url": "jacket.jpg",
+        "description": "Стильная и теплая куртка для холодной погоды.",
+        "price": 4990
+    },
+    {
+        "name": "Футболка",
+        "category": "clothing",
+        "image_url": "tshirt.jpg",
+        "description": "Удобная футболка из хлопка.",
+        "price": 990
+    },
+    {
+        "name": "Джинсы",
+        "category": "clothing",
+        "image_url": "jeans.jpg",
+        "description": "Модные джинсы для повседневной носки.",
+        "price": 2990
+    },
+    {
+        "name": "Кроссовки",
+        "category": "shoes",
+        "image_url": "sneakers.jpg",
+        "description": "Удобные кроссовки для бега.",
+        "price": 3990
+    },
+    {
+        "name": "Ботинки",
+        "category": "shoes",
+        "image_url": "boots.jpg",
+        "description": "Качественные ботинки из натуральной кожи.",
+        "price": 5990
+    },
+    {
+        "name": "Туфли",
+        "category": "shoes",
+        "image_url": "shoes.jpg",
+        "description": "Элегантные туфли для особых случаев.",
+        "price": 4990
+    }
+]

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ product['name'] }}</h2>
+<img src="{{ url_for('static', filename=product['image_url']) }}" alt="{{ product['name'] }}">
+<p>{{ product['description'] }}</p>
+<p>Цена: {{ product['price'] }} руб.</p>
+<button>Добавить в корзину</button>
+{% endblock %}
