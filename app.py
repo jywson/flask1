@@ -30,7 +30,7 @@ def product(product_name):
     if product:
         return render_template('product.html', product=product)
     else:
-        return "Product not found", 404
+        return "Товар не найден", 404
 
 if __name__ == '__main__':
     app.run(debug=True)
